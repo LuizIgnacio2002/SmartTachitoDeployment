@@ -15,6 +15,9 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+    if 'collectstatic' in sys.argv and os.environ.get('DISABLE_COLLECTSTATIC') == '1':
+        sys.argv = [arg for arg in sys.argv if arg != 'collectstatic']
+        sys.argv.append('check')  # Replace 'collectstatic' with 'check' to avoid errors
     execute_from_command_line(sys.argv)
 
 
